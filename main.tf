@@ -4,11 +4,16 @@ resource "aws_vpc" "example" {
   cidr_block = "10.0.0.0/16"
 }
 
-resource "aws_s3_bucket" "New_bucket" {
-  bucket = "ENTER YOUR BUCKET NAME"
-  acl    = "private"
+resource "aws_s3_bucket" "TestBucket" {
+  bucket = "TestBucket_231422"
 
   tags = {
     Name = "myBucketTagName"
   }
+}
+
+resource "aws_s3_bucket_acl" "name" {
+  bucket = "TestBucket_231422"
+  acl = "private"
+  
 }
