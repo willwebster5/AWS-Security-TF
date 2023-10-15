@@ -30,12 +30,11 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -var "aws_access_key_id=${{ env.AWS_ACCESS_KEY_ID }}" -var "aws_secret_access_key=${{ env.AWS_SECRET_ACCESS_KEY }}" -out=tfplan.json
+        run: terraform plan -var "aws_access_key_id=${{ env.AWS_ACCESS_KEY_ID }}" -var "aws_secret_access_key=${{ env.AWS_SECRET_ACCESS_KEY }}"
       
       - name: Checkov Scan
         uses: bridgecrewio/checkov-action@master
         with:
-            file: tfplan.json
             quiet : true
             soft_fail: true
             framework: terraform
