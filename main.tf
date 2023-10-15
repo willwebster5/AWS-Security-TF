@@ -4,16 +4,10 @@ resource "aws_vpc" "example" {
   cidr_block = "10.0.0.0/16"
 }
 
-resource "aws_s3_bucket" "TestBucket" {
-  bucket = "TestBucket_231422"
-
+resource "aws_guardduty_detector" "example" {
+  enable = true
+  finding_publishing_frequency = "SIX_HOURS"
   tags = {
-    Name = "myBucketTagName"
+    Name = "myGuardDutyDetector"
   }
-}
-
-resource "aws_s3_bucket_acl" "name" {
-  bucket = "TestBucket_231422"
-  acl = "private"
-  
 }
