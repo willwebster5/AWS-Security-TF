@@ -1,12 +1,15 @@
-name: 'Terraform Plan'
+name: 'Terraform Apply'
 
 on:
-    push:
-      branches:
-        - main
-    pull_request_target:
-        branches:
-          - main
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
