@@ -12,7 +12,7 @@ variable "aws_secret_access_key" {
   description = "The AWS secret access key for authentication."
 }
 
-variable "slack_webhook" {
-  description = "Slack Webhook URL"
-  type        = string
-}
+#variable "slack_webhook" {
+ # description = "Slack Webhook URL"
+  #type        = string
+#}
