@@ -1,5 +1,5 @@
 
-
+/*
 # Lambda Function
 resource "aws_lambda_function" "guardduty_lambda" {
   filename      = "GuardDutyLambdas/SSHBruteForceLambda.zip"
@@ -89,3 +89,4 @@ module "s3_bucket" {
     enabled = true
   }
 }
+*/

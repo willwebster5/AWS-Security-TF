@@ -1,3 +1,4 @@
+/*
 resource "aws_inspector_assessment_target" "target" {
   name = "inspector-target-${var.environment}"
 }
@@ -13,4 +14,12 @@ resource "aws_inspector_assessment_template" "template" {
     "arn:aws:inspector:us-west-2:758058086616:rulespackage/0-JJOtZiqQ",
     "arn:aws:inspector:us-west-2:758058086616:rulespackage/0-vg5GGHSD",
   ]
+}
+*/
+
+data "aws_caller_identity" "current" {}
+
+resource "aws_inspector2_enabler" "test" {
+  account_ids    = [data.aws_caller_identity.current.account_id]
+  resource_types = ["EC2"]
 }

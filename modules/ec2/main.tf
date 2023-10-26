@@ -9,7 +9,10 @@ resource "aws_instance" "instance" {
 
 resource "aws_ssm_association" "ssm_association" {
   name        = "AWS-ConfigureAWSPackage"
-  instance_id = aws_instance.instance.id
+  targets {
+    key    = "InstanceIds"
+    values = ["*"]
+  }
 
   parameters = {
     action  = "Install"

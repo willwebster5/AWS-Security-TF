@@ -5,3 +5,7 @@ variable "aws_region" {
 variable "environment" {
   description = "Environment (staging or production)"
 }
+
+variable "instance_id" {
+  description = "Instance ID"
+}

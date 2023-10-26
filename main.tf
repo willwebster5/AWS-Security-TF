@@ -3,7 +3,7 @@
 resource "aws_vpc" "example" {
   cidr_block = "10.0.0.0/16"
 }
-
+/*
 resource "aws_guardduty_detector" "example" {
   enable = true
   finding_publishing_frequency = "SIX_HOURS"
@@ -11,7 +11,7 @@ resource "aws_guardduty_detector" "example" {
     Name = "myGuardDutyDetector"
   }
 }
-
+*/
 module "ec2_staging" {
   source        = "./modules/ec2"
   aws_region    = var.aws_region
@@ -22,12 +22,11 @@ module "ec2_staging" {
 
 module "inspector_staging" {
   source      = "./modules/inspector"
-  aws_region  = var.aws_region
-  environment = "staging"
 }
 
 module "patch_manager_staging" {
   source      = "./modules/patch_manager"
+  instance_id = module.ec2_staging.instance_id
   aws_region  = var.aws_region
   environment = "staging"
 }
