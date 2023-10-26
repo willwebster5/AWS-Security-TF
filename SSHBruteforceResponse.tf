@@ -48,7 +48,7 @@ resource "aws_iam_role_policy_attachment" "lambda_secrets_policy_attach" {
 
 # Secrets Manager for Slack webhook
 resource "aws_secretsmanager_secret" "slack_webhook_secret" {
-  name = "slack/webhook"
+  name = "slack/webhook12422"
 }
 
 resource "aws_secretsmanager_secret_version" "slack_webhook_secret_version" {
@@ -76,10 +76,10 @@ resource "aws_cloudwatch_event_target" "guardduty_event_target" {
 }
 
 module "s3_bucket" {
-  source = "terraform-aws-modules/s3-bucket/aws"
+  source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.15.1"
 
-  bucket = "SSHBruteForceResponseAuthBucket"
+  bucket = "ssh-brute-force-response-auth-bucket-1251231"
   acl    = "private"
 
   control_object_ownership = true

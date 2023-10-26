@@ -5,7 +5,7 @@ resource "aws_vpc" "example" {
 }
 
 resource "aws_guardduty_detector" "example" {
-  enable = true
+  enable                       = true
   finding_publishing_frequency = "SIX_HOURS"
   tags = {
     Name = "myGuardDutyDetector"
