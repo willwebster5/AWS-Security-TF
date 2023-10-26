@@ -12,8 +12,8 @@ resource "aws_ssm_association" "ssm_association" {
   instance_id = aws_instance.instance.id
 
   parameters = {
-    action         = "Install"
-    name           = "AmazonCloudWatchAgent"
-    version        = "latest"
+    action  = "Install"
+    name    = "AmazonCloudWatchAgent"
+    version = "latest"
   }
 }
