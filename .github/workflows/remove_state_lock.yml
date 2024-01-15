@@ -1,0 +1,31 @@
+name: Unlock Terraform State
+
+on:
+  workflow_dispatch:
+
+jobs:
+  unlock-state:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Get Terraform Lock ID
+        id: get-lock-id
+        run: |
+          LOCK_ID_PATTERN="tofu-s3-bucket-state/workspaces/aws-secuirty-tf"
+          LOCK_ID=$(aws dynamodb scan --table-name terraform-state-lock-dynamo --projection-expression "LockID" --filter-expression "contains(LockID, :v1)" --expression-attribute-values '{":v1":{"S":"'"$LOCK_ID_PATTERN"'"}}' --query "Items[0].LockID.S" --output text)
+          echo "Lock ID: $LOCK_ID"
+          echo "::set-output name=lock_id::$LOCK_ID"
+
+      - name: Remove Terraform Lock
+        run: |
+          LOCK_ID=${{ steps.get-lock-id.outputs.lock_id }}
+          aws dynamodb delete-item --table-name terraform-state-lock-dynamo --key '{"LockID": {"S": "'$LOCK_ID'"}}'
