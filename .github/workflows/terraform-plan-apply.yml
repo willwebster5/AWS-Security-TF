@@ -7,7 +7,7 @@ on:
 
 jobs:
   Test-Account:
-    uses: willwebster5/reusable_worklfows/.github/workflows/terraform-plan-apply.yml@v0.1.0
+    uses: willwebster5/gha_reusable_workflows/.github/workflows/terraform-plan-apply.yml@main
     with:
       environment: test-account
       directory: test-account
