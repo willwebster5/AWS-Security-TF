@@ -4,7 +4,7 @@ import uuid
 
 def lambda_handler(event, context):
     instance_id = event['detail']['resource']['instanceDetails']['instanceId']
-    s3_bucket_name = "your-s3-bucket-name"  # Replace with your actual S3 bucket name
+    s3_bucket_name = "SSHBruteForceResponseAuthBucket-aeidkwxio3092df3"  # Replace with your actual S3 bucket name
 
     ssm_client = boto3.client('ssm')
     response = ssm_client.send_command(
