@@ -73,7 +73,7 @@ module "s3_bucket" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.15.1"
 
-  bucket = "SSHBruteForceResponseAuthBucket"
+  bucket = "SSHBruteForceResponseAuthBucket-aeidkwxio3092df3"
   acl    = "private"
 
   control_object_ownership = true
