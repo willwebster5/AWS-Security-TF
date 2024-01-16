@@ -24,36 +24,30 @@ resource "aws_iam_role" "lambda_exec_role" {
       }
     ]
   })
-}
-
-data "aws_iam_policy_document" "lambda_secrets_policy" {
-  statement {
-    actions = [
-      "secretsmanager:GetSecretValue",
-    ]
-    resources = [aws_secretsmanager_secret.slack_webhook_secret.arn]
+  inline_policy {
+    name   = "lambda_s3_ssm_policy"
+    policy = data.aws_iam_policy_document.lambda_exec_policy.json
   }
 }
 
-resource "aws_iam_policy" "lambda_secrets_policy" {
-  name        = "lambda_secrets_policy"
-  description = "Allow lambda to access secrets"
-  policy      = data.aws_iam_policy_document.lambda_secrets_policy.json
-}
-
-resource "aws_iam_role_policy_attachment" "lambda_secrets_policy_attach" {
-  role       = aws_iam_role.lambda_exec_role.name
-  policy_arn = aws_iam_policy.lambda_secrets_policy.arn
-}
-
-# Secrets Manager for Slack webhook
-resource "aws_secretsmanager_secret" "slack_webhook_secret" {
-  name = "slack/webhook"
-}
-
-resource "aws_secretsmanager_secret_version" "slack_webhook_secret_version" {
-  secret_id     = aws_secretsmanager_secret.slack_webhook_secret.id
-  secret_string = "{\"webhook\": \"test\"}" # ${var.slack_webhook} would go here.
+# Update the IAM policy to include S3 and SSM permissions
+data "aws_iam_policy_document" "lambda_exec_policy" {
+  statement {
+    actions = [
+      "ssm:SendCommand",
+      "ssm:ListCommands",
+      "ssm:ListCommandInvocations",
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:ListBucket"
+    ]
+    resources = [
+      "arn:aws:ssm:*:*:document/*",
+      "arn:aws:ssm:*:*:instance/*",
+      "arn:aws:s3:::SSHBruteForceResponseAuthBucket/*",
+      "arn:aws:s3:::SSHBruteForceResponseAuthBucket"
+    ]
+  }
 }
 
 # EventBridge Rule
@@ -76,7 +70,7 @@ resource "aws_cloudwatch_event_target" "guardduty_event_target" {
 }
 
 module "s3_bucket" {
-  source = "terraform-aws-modules/s3-bucket/aws"
+  source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.15.1"
 
   bucket = "SSHBruteForceResponseAuthBucket"

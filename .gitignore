@@ -36,3 +36,10 @@ terraform.rc
 .aws/*
 **/.aws/*
 
+#gpt-engineer
+.gpteng/*
+**/.gpteng/*
+/run.sh
+/prompt
+
+
