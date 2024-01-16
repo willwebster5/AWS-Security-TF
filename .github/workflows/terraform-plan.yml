@@ -12,7 +12,7 @@ concurrency:
 
 jobs:  
   test-account-plan:
-    uses: willwebster5/reusable_workflows/.github/workflows/terraform-plan-apply.yml@v0.1.0
+    uses: willwebster5/reusable_worklfows/.github/workflows/terraform-plan-apply.yml@v0.1.0
     with:
       environment: test-account
       directory: test-account
