@@ -14,6 +14,8 @@ jobs:
       region: us-east-1
       terraform_version: 1.3.10
       tflint_version: v0.45.0
+      workspace: aws-security-tf
+      dynamo_statelock_table: terraform-state-lock-dynamo
       apply: true
     secrets:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
