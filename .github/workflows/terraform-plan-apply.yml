@@ -7,7 +7,7 @@ on:
 
 jobs:
   Management:
-    uses: willwebster5//reusable_workflows/.github/workflows/terraform-plan-apply.yml@main
+    uses: willwebster5/reusable_workflows/.github/workflows/terraform-plan-apply.yml@main
     with:
       environment: management
       directory: management
